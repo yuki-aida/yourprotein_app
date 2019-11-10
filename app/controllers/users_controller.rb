@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     #                     "")と同義
     if @user.save
       # 保存に成功した時の処理
+      log_in @user
       flash[:success] = "Welcome to the YourProtein App!"
       # redirect_to user_url(@user)と同義
       redirect_to @user

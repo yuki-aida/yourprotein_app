@@ -1,0 +1,5 @@
+michael:
+  name: Michael Example
+  email: michael@example.com
+  # テスト用fixturesでは全員同じパスワード(password)を使う
+  password_digest: <%= User.digest('password') %>

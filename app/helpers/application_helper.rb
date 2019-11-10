@@ -1,3 +1,4 @@
+# helpersは自動的に全ビューに読み込まれる
 module ApplicationHelper
     # ページごとの完全なタイトルを返す
     def full_title(page_title='')

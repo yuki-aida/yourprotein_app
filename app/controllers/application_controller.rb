@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  
-  def hello
-      render html: "hello world"
-  end
+  # 全コントローラーでSessionsHelperが使えるようにする
+  include SessionsHelper
 end
