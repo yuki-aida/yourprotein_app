@@ -50,6 +50,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_not is_logged_in?
   # リダイレクト先が正しいか確認(root_url)
     assert_redirected_to root_url
+  # 2番目のウィンドウでログアウトするユーザーを想定
+    delete logout_path
   # 実際にリダイレクトする
     follow_redirect!
   # ログインパスがあるか確認
@@ -58,5 +60,23 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path, count: 0
   # ユーザー詳細ページがないか確認
     assert_select "a[href=?]", user_path(@user), count: 0
+  end
+  
+  test "login with remembering" do
+    log_in_as(@user, remember_me: "1")
+    # 記憶トークンが空でないか確認
+    # 元のコード assert_not_empty cookies['remember_token']
+    # assignsという特殊なメソッドを使うとコントローラーで定義したインスタンス変数に
+    # テスト内部からアクセスすることができる
+    assert_equal cookies['remember_token'], assigns[:user].remember_token
+  end
+  
+  test "login without remembering" do
+    # クッキーを保存してログイン
+    log_in_as(@user, remember_me: "1")
+    delete logout_path
+    # クッキーを削除してログイン
+    log_in_as(@user, remember_me: "0")
+    assert_empty cookies['remember_token']
   end
 end
