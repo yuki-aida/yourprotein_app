@@ -2,6 +2,11 @@ require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
   
+  def setup
+    # 変数deliveriesを初期化
+    ActionMailer::Base.deliveries.clear
+  end
+  
   test "invalid signup information" do
     get signup_path
     # 無効なユーザーを登録して、データベースのユーザーの数が変わっていないことをテスト
@@ -19,7 +24,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_select 'form[action="/signup"]'
   end
   
-  test "valid signup information" do
+  test "valid signup information with account activation" do
     get signup_path
     # assert_differenceブロック内の処理を実行する直前のUser.countの値と実行した後の
     # 値を比較
@@ -29,10 +34,23 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                           password: "password",
                           password_confirmation: "password" } }
     end
-    # POSTリクエストを送信した結果を見て、指定されたリダイレクト先に移動するメソッド
+    # 送信されたメールがきっかり一つであることを確認
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    # 直前に作られたインスタンスを取得(usersコントローラーのcreateアクション内の
+    # @userのこと)
+    user = assigns(:user)
+    assert_not user.activated?
+    # 有効化していない状態でログインする
+    get edit_account_activation_path("Invalid token", email: user.email)
+    assert_not is_logged_in?
+    # トークンは正しいがメールアドレスが無効の場合
+    get edit_account_activation_path(user.activation_token, email: "Invalid")
+    assert_not is_logged_in?
+    # 有効化トークンが正しい場合
+    get edit_account_activation_path(user.activation_token, email: user.email)
+    assert user.reload.activated?
     follow_redirect!
     assert_template 'users/show'
-    assert_not flash.empty?
     assert is_logged_in?
   end
   

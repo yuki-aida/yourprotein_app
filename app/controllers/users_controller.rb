@@ -5,12 +5,15 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
   
   def index
-    @users = User.paginate(page: params[:page])
+    # 有効化されているユーザーだけを表示
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
   
   def show
     # /users/:idから値を取得して@userに代入
     @user = User.find(params[:id])
+    # ユーザーが有効化されていない場合はルートURLにリダイレクトさせる
+    redirect_to root_url and return unless @user.activated? 
   end
   
   def new
@@ -23,10 +26,9 @@ class UsersController < ApplicationController
     #                     "")と同義
     if @user.save
       # 保存に成功した時の処理
-      log_in @user
-      flash[:success] = "Welcome to the YourProtein App!"
-      # redirect_to user_url(@user)と同義
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
     end

@@ -1,8 +1,13 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
+  # attr_accessorで明示することでremember_tokenがローカル変数ではないことを明示？
+  attr_accessor :remember_token, :activation_token
   # ここのselfは現在のユーザーを指す。(saveされる前に現在のユーザーのアドレスが
   # 小文字に変換される)
-  before_save { self.email = self.email.downcase }
+  # before_saveコールバックはオブジェクトが生成される直前、保存される直前、更新される
+  # 直前に呼び出される
+  before_save :downcase_email
+  # オブジェクト作成時にのみ呼び出される
+  before_create :create_activation_digest
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -33,9 +38,10 @@ class User < ApplicationRecord
   
   # 渡されたトークンがダイジェストと一致したらtrueを返す
   # 引数のremember_tokenはローカル変数（:remember_tokenとは異なる）
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, remember_token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(remember_token)
   end
   
   # ユーザーのログイン情報を破棄する
@@ -43,4 +49,26 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
   
+   # アカウントを有効にする
+  def activate
+    # user.とするとエラーになる。(self.なら可。でもモデル内では必須ではない)
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  # 有効化用のメールを送信する
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+  
+  private
+    # メールアドレスを全て小文字にする
+    def downcase_email
+      self.email = self.email.downcase
+    end
+    
+    # 有効化トークンとダイジェストを作成および代入する
+    def create_activation_digest
+      self.activation_token = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
 end
