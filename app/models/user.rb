@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # attr_accessorで明示することでremember_tokenがローカル変数ではないことを明示？
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   # ここのselfは現在のユーザーを指す。(saveされる前に現在のユーザーのアドレスが
   # 小文字に変換される)
   # before_saveコールバックはオブジェクトが生成される直前、保存される直前、更新される
@@ -58,6 +58,24 @@ class User < ApplicationRecord
   # 有効化用のメールを送信する
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
+  end
+  
+   # パスワード再設定の属性を設定する
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_columns(reset_digest: User.digest(reset_token),
+                reset_sent_at: Time.zone.now)
+  end
+  
+  # パスワード再設定のメールを送信する
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+  
+  # パスワード再設定の期限が切れている場合はtrueを返す(reset_sent_atの値が現在時刻
+  # から数えて二時間よりも前の場合)
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
   
   private
