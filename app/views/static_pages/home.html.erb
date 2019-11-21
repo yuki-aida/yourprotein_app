@@ -1,4 +1,20 @@
-<div class="bg-image">
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <section class="micropost_form">
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
+  <div class="bg-image">
     <div class="bg-mask">
         <div class="bg-text">
             <h1>Welcome to the Yourprotein App</h1>
@@ -9,7 +25,8 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
+<% end %>
 
 <!--画像はバックグラウンドで全面表示-->
 <!--bodyタグ内は全て中央寄せにする-->

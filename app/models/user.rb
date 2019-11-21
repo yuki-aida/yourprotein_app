@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
   # attr_accessorで明示することでremember_tokenがローカル変数ではないことを明示？
   attr_accessor :remember_token, :activation_token, :reset_token
   # ここのselfは現在のユーザーを指す。(saveされる前に現在のユーザーのアドレスが
@@ -76,6 +77,14 @@ class User < ApplicationRecord
   # から数えて二時間よりも前の場合)
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+  
+  # 試作feedの定義
+  # 完全な実装は次章の「ユーザーをフォローする」を参照
+  # user_id = ?があることでSQLクエリに代入される前にidがエスケープされる。
+  # idはself.idと同義
+  def feed
+    Micropost.where("user_id = ?", id)
   end
   
   private
