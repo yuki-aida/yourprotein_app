@@ -6,8 +6,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
   
   def index
-    # 有効化されているユーザーだけを表示
-    @users = User.where(activated: true).paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
   
   def show

@@ -1,9 +1,21 @@
 <% provide(:title, 'All users') %>
 <h1>All Users</h1>
 
+<div>
+<div style="float: left;">
 <%= will_paginate %>
+</div>
+<!--検索機能-->
 
-<ul class="users">
+<div class="search-group" style="float: right;">
+<%= form_tag(users_path, :method => 'get' ) do %>
+  <input type="search" name="search" id="search" placeholder="キーワード"><input type="submit" name="" value="検索">
+<% end %>
+</div>
+</div>
+<!--検索機能ここまで-->
+
+<ul class="users" style="clear: both;">
   <!--Railsは@usersをUserオブジェクトのリストであると推測する-->
     <%= render @users %>
 </ul>
