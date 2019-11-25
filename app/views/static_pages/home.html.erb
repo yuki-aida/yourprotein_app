@@ -4,6 +4,9 @@
       <section class="user_info">
         <%= render 'shared/user_info' %>
       </section>
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
       <section class="micropost_form">
         <%= render 'shared/micropost_form' %>
       </section>
@@ -19,8 +22,8 @@
         <div class="bg-text">
             <h1>Welcome to the Yourprotein App</h1>
             <h2>Share your favorite protein for muscle!</h2>
-            <div style="text-align: center;">
-                <%= link_to "Sign up", signup_path, class: "btn btn-lg btn-primary" %>
+            <div class= "selectors">
+                <%= link_to "Sign up", signup_path, class: "btn btn-lg btn-primary first-btn" %>
                 <%= link_to "Log in", login_path, class: "btn btn-lg btn-success" %>
             </div>
         </div>
