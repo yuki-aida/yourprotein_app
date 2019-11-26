@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def show
     # /users/:idから値を取得して@userに代入
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
     # ユーザーが有効化されていない場合はルートURLにリダイレクトさせる
     redirect_to root_url and return unless @user.activated? 
   end

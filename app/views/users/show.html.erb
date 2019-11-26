@@ -15,8 +15,21 @@
    <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
+      <div>
+      <h3 style="float: left;">投稿一覧 (<%= @user.microposts.count %>)</h3>
+      
+      <!--<検索機能>-->
+      
+      <div class="search-group" style="float: right; margin-top: 12px;">
+      <%= form_tag(user_path, :method => 'get' ) do %>
+        <input type="search" name="search" id="search" placeholder="キーワード"><input type="submit" name="" value="検索">
+      <% end %>
+      </div>
+      </div>
+      
+      <!--<検索機能ここまで>-->
+      
+      <ol class="microposts" style="clear: both;">
         <%= render @microposts %>
       </ol>
       <%= will_paginate @microposts %>

@@ -8,6 +8,14 @@ class Micropost < ApplicationRecord
   # 独自のバリデーションなのでvalidateメソッドを使う
   validate :picture_size
   
+  def self.search(search)
+    if search
+      where(['content LIKE ?', "%#{search}%"]) #検索とcontentの部分一致を表示
+    else
+      all #全て表示
+    end
+  end
+  
   private
     
     # アップロードされた画像のサイズをバリデーションする
