@@ -3,7 +3,12 @@
 <!--(fの値が@userでも@micropostでもエラーメッセージが機能するようになる) -->
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    <%= f.text_area :content, placeholder: "例...
+メーカー: ○○○
+フレーバー: ○○○
+1kgあたりの価格: ○○○円
+レビュー: カップ一杯で約20gのタンパク質が取れます。また水に溶けやすくほとんどダマになりません。
+でもバニラ味は少し甘すぎるので私はプレーンと半々で割って飲んでます。" %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
   <span class="picture">

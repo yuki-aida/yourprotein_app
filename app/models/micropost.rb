@@ -1,5 +1,7 @@
 class Micropost < ApplicationRecord
   belongs_to :user
+  has_many :likes, dependent: :destroy
+  has_many :favorite_users, through: :likes, source: :user
   # デフォルトの順序を降順へ(新しい投稿から古い投稿の順序で並ぶ)
   default_scope -> { order(created_at: :desc) }     # ラムダ式という文法(すぐに理解しなくても良い)
   mount_uploader :picture, PictureUploader   # CarrierWaveに画像と関連付けたモデルを伝える
@@ -14,6 +16,21 @@ class Micropost < ApplicationRecord
     else
       all #全て表示
     end
+  end
+  
+  # マイクロポストをいいねする
+  def favorite(user)
+    likes.create(user_id: user.id)
+  end
+
+  # マイクロポストのいいねを解除する（ネーミングセンスに対するクレームは受け付けません）
+  def unfavorite(user)
+    likes.find_by(user_id: user.id).destroy
+  end
+  
+  # 現在のユーザーがいいねしてたらtrueを返す
+  def favorite?(user)
+    favorite_users.include?(user)
   end
   
   private

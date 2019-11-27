@@ -13,6 +13,8 @@ class UsersController < ApplicationController
     # /users/:idから値を取得して@userに代入
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
+    # like拡張機能
+    @likes = Like.where(micropost_id: params[:micropost_id])
     # ユーザーが有効化されていない場合はルートURLにリダイレクトさせる
     redirect_to root_url and return unless @user.activated? 
   end
