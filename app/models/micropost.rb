@@ -30,6 +30,8 @@ class Micropost < ApplicationRecord
   
   # 現在のユーザーがいいねしてたらtrueを返す
   def favorite?(user)
+    # そのマイクロポストをいいねしている全てのユーザーを配列で返し、current_userが
+    # 含まれているか確かめる
     favorite_users.include?(user)
   end
   

@@ -15,4 +15,11 @@
       <% end %>
     <% end %>
   </span>
+<% else %>
+<!--自分の投稿は黒ハートでいいね数を表示させる(自分の投稿にはいいねできない)-->
+    <span class="like">
+        <%= button_tag(class: "btn btn-default btn-xs") do %>
+          <%= content_tag :span, "#{micropost.likes_count}", class: "glyphicon glyphicon-heart" %>
+        <% end %>
+    </span>
 <% end %>

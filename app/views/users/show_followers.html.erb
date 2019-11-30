@@ -19,9 +19,19 @@
     </section>
   </aside>
   <div class="col-md-8">
-    <h3><%= @title %></h3>
+    <div>
+    <h3 style="float: left;"><%= @title %></h3>
+    <!--検索機能-->
+    
+    <div class="search-group" style="float: right; margin-top: 7px;">
+      <%= form_tag(followers_user_path(@user), :method => 'get' ) do %>
+        <input type="search" name="search" id="search" placeholder= "follower user"><input type="submit" name="" value="検索">
+      <% end %>
+    </div>
+    </div>
+    <!--検索機能ここまで-->
     <% if @users.any? %>
-      <ul class="users follow">
+      <ul class="users follow" style="clear: both;">
         <%= render @users %>
       </ul>
       <%= will_paginate %>
