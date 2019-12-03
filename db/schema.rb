@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191127060930) do
+ActiveRecord::Schema.define(version: 20191203044425) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -56,7 +56,9 @@ ActiveRecord::Schema.define(version: 20191127060930) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.text "profile"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["profile"], name: "index_users_on_profile"
   end
 
 end

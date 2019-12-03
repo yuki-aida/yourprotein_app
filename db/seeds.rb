@@ -9,18 +9,21 @@ User.create!(name:  "Example User",
              password_confirmation: "foobar",
              admin: true,
              activated: true,
-             activated_at: Time.zone.now)
+             activated_at: Time.zone.now,
+             profile: "I like bench press.")
 
 99.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
+  profile = "I like aquat"
   User.create!(name:  name,
                email: email,
                password:              password,
                password_confirmation: password,
                activated: true,
-               activated_at: Time.zone.now)
+               activated_at: Time.zone.now,
+               profile: profile)
 end
 
 # 作成されたユーザーの最初の6人を明示的に呼び出す
