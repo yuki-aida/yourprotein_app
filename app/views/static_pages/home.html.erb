@@ -4,10 +4,14 @@
       <section class="user_info">
         <%= render 'shared/user_info' %>
       </section>
+      <% if current_user?(@user) %>
+      <%= link_to "変更", edit_user_path(current_user)%>
+      <% end %>
+      <p><%= @user.profile %></p>
       <section class="stats">
         <%= render 'shared/stats' %>
       </section>
-      <section class="micropost_form">
+      <section class="micropost_form" style="margin-top: 10px;">
         <%= render 'shared/micropost_form' %>
       </section>
     </aside>
@@ -33,7 +37,7 @@
   <div class="bg-image">
     <div class="bg-mask">
         <div class="bg-text">
-            <h1>Welcome to the Yourprotein App</h1>
+            <h1>Welcome to the YourProtein App</h1>
             <h2>Share your favorite protein for muscle!</h2>
             <div class= "selectors">
                 <%= link_to "Sign up", signup_path, class: "btn btn-lg btn-primary first-btn" %>

@@ -6,6 +6,7 @@ michael:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
+  profile: I like dead lift.
   
 archer:
   name: Sterling Archer
@@ -13,6 +14,7 @@ archer:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  profile: I like bench press.
   
 lana:
   name: Lana Kane
@@ -20,6 +22,7 @@ lana:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  profile: I like bench press.
 
 malory:
   name: Malory Archer
@@ -27,6 +30,7 @@ malory:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  profile: I like bench press.
   
 non_activated:
  name: Non Activated
@@ -34,6 +38,7 @@ non_activated:
  password_digest: <%= User.digest('password') %>
  activated: false
  activated_at: <%= Time.zone.now %>
+ profile: I like bench press.
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -42,4 +47,5 @@ user_<%= n %>:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  profile: I like bench press.
 <% end %>

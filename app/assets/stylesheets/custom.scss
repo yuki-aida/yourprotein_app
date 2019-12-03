@@ -67,7 +67,6 @@ p {
   margin-right: 10px;
   font-size: 1.7em;
   color: #fff;
-  text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
@@ -359,4 +358,11 @@ span.picture {
 	background: #1f76e2;
   }
   
+}
+
+/* user-profile */
+.profile-change{
+  padding: 3px 6px !important;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
