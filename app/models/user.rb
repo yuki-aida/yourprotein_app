@@ -90,8 +90,6 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
   
-  # 試作feedの定義
-  # 完全な実装は次章の「ユーザーをフォローする」を参照
   # user_id = ?があることでSQLクエリに代入される前にidがエスケープされる。
   # idはself.idと同義
   def feed

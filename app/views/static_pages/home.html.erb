@@ -1,5 +1,50 @@
+<!--パーシャルに分けると何故か例外が発生する-->
 <% if logged_in? %>
-  <%= render 'log_in_page' %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <% if current_user?(@user) %>
+      <%= link_to "変更", edit_user_path(current_user)%>
+      <% end %>
+      <p style="margin-bottom: 15px;"><%= @user.profile %></p>
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
+      <section class="micropost_form" style="margin-top: 10px;">
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <div>
+      <h3 style="float: left;">タイムライン</h3>
+      
+      <!--検索機能-->
+      
+      <div class="search-group" style="float: right; margin-top: 12px;">
+      <%= form_tag(root_path, :method => 'get' ) do %>
+        <input type="search" name="search" id="search" placeholder="キーワード"><input type="submit" name="" value="検索">
+      <% end %>
+      </div>
+      </div>
+      
+      <!--検索機能ここまで-->
+      
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
 <% else %>
-  <%= render 'not_log_in_page' %>
+  <div class="bg-image">
+    <div class="bg-mask">
+        <div class="bg-text">
+            <h1>Welcome to the YourProtein App</h1>
+            <h2>Share your favorite protein for muscle!</h2>
+            <div class= "selectors">
+                <%= link_to "Sign up", signup_path, class: "btn btn-lg btn-primary first-btn" %>
+                <%= link_to "Log in", login_path, class: "btn btn-lg btn-success" %>
+            </div>
+        </div>
+    </div>
+  </div>
 <% end %>
