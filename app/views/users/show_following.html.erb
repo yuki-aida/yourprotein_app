@@ -4,7 +4,7 @@
     <section class="user_info">
       <%= gravatar_for @user %>
       <h1><%= @user.name %></h1>
-      <span><%= link_to "view my profile", @user %></span>
+      <span><%= link_to "プロフィール", @user %></span>
       <span><b>Microposts:</b> <%= @user.microposts.count %></span>
     </section>
     <section class="stats">
@@ -25,7 +25,7 @@
     
     <div class="search-group" style="float: right; margin-top: 7px;">
       <%= form_tag(following_user_path(@user), :method => 'get' ) do %>
-        <input type="search" name="search" id="search" placeholder= "following user"><input type="submit" name="" value="検索">
+        <input type="search" name="search" id="search" placeholder= "キーワード"><input type="submit" name="" value="検索">
       <% end %>
     </div>
     </div>

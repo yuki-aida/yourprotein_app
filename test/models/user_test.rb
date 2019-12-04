@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
   # setupメソッドは各テストが走る前に実行される
   def setup
     @user = User.new(name: "Example User", email: "user@example.com",
-        password: "foobar", password_confirmation: "foobar")
+        password: "foobar", password_confirmation: "foobar", profile: "I like bench press.")
   end
   
   # @userの値が正しいかどうかテスト
