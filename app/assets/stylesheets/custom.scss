@@ -368,4 +368,12 @@ span.picture {
   margin-bottom: 5px;
 }
 
-/* like */
+/* popup */
+#popup {
+    position: fixed;
+    width: auto;
+    height: 128px;
+    padding: 5px;
+    background-color: white;
+    text-align: center;
+}

@@ -35,6 +35,19 @@
     </div>
   </div>
 <% else %>
+<!-- ポップアップ -->
+<div id="popup">
+    <p>テストユーザーの方へ</p>
+    <p>下記を用いてログインしてください。</p>
+    <p>email: testuser@gmail.com</p>
+    <p>password: testuser</p>
+    <input type="button" id="close" value="close" style="margin-top: 5px;">
+</div>
+<script>
+  document.getElementById("popup").onclick = function() {
+  document.getElementById("popup").style.display = "none";
+};
+</script>
   <div class="bg-image">
     <div class="bg-mask">
         <div class="bg-text">
