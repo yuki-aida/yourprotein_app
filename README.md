@@ -20,22 +20,22 @@ Rails Tutorialを学んだ後、知識を定着させる目的で作ったアプ
 
 インフラ構成
 
-・統合開発環境
+・統合開発環境<br>
 　・AWS(Cloud9)<br>
-・公開用プラットフォーム
+・公開用プラットフォーム<br>
 　・Heroku<br>
-・バージョン管理
+・バージョン管理<br>
 　・Git<br>
-・Webサーバー
-　・Production環境
+・Webサーバー<br>
+　・Production環境<br>
 　　・Puma 3.9.1<br>
-・DB
-　・Production環境
+・DB<br>
+　・Production環境<br>
 　　・PostgreSQL(0.20.0)<br>
-・フロントエンド言語
-　・HTML
-　・SCSS
+・フロントエンド言語<br>
+　・HTML<br>
+　・SCSS<br>
 　・Javascript<br>
-・バックエンド言語
-　・Ruby 2.6.3
+・バックエンド言語<br>
+　・Ruby 2.6.3<br>
 　・Ruby on Rails 5.1.6
