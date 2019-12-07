@@ -27,3 +27,5 @@
 
 # アップロードされたテスト画像を無視する
 /public/uploads
+# Ignore master key for decrypting credentials and more.
+/config/master.key
