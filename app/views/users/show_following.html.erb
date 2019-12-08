@@ -7,15 +7,12 @@
       <span><%= link_to "プロフィール", @user %></span>
       <span><b>Microposts:</b> <%= @user.microposts.count %></span>
     </section>
+    <% if current_user?(@user) %>
+    <%= link_to "変更", edit_user_path(current_user)%>
+    <% end %>
+    <p style="margin-bottom: 15px;"><%= @user.profile %></p>
     <section class="stats">
       <%= render 'shared/stats' %>
-      <% if @users.any? %>
-        <div class="user_avatars">
-          <% @users.each do |user| %>
-            <%= link_to gravatar_for(user, size: 30), user %>
-          <% end %>
-        </div>
-      <% end %>
     </section>
   </aside>
   <div class="col-md-8">

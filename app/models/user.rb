@@ -49,7 +49,7 @@ class User < ApplicationRecord
   end
   
   # 渡されたトークンがダイジェストと一致したらtrueを返す
-  # 引数のremember_tokenはローカル変数（:remember_tokenとは異なる）
+  # 引数のremember_tokenはローカル変数（:remember_tokenと�����異なる）
   def authenticated?(attribute, remember_token)
     digest = self.send("#{attribute}_digest")
     return false if digest.nil?
