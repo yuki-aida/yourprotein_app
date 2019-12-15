@@ -1,17 +1,19 @@
 class UsersController < ApplicationController
   # edit、updateアクションが実行される前に実行されるフィルター
   before_action :logged_in_user, only:[:edit, :update, :index, :destroy,
-                                  :following, :followers]
+                                  :following, :followers, :likes]
   before_action :correct_user, only:[:edit, :update]
   before_action :admin_user, only: :destroy
   
   def index
+    # class名: User::ActiveRecord_Relation 
     @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
   
   def show
     # /users/:idから値を取得して@userに代入
     @user = User.find(params[:id])
+    # class名: Micropost::ActiveRecord_AssociationRelation 
     @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
     # ユーザーが有効化されていない場合はルートURLにリダイレクトさせる
     redirect_to root_url and return unless @user.activated?
@@ -74,6 +76,8 @@ class UsersController < ApplicationController
   def likes
     @user = User.find(params[:id])
     @likes = Like.where(user_id: @user.id)
+    # クラス名: Array(ただの配列だからモデルにあるsearchメソッドが使えない)
+    # Arrayクラスに対してMicropostクラスメソッドは使えない
     posts = @likes.map do |like|
       like.micropost
     end
