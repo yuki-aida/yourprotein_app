@@ -13,10 +13,8 @@ class UsersController < ApplicationController
     # /users/:idから値を取得して@userに代入
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
-    # like拡張機能
-    @likes = Like.where(micropost_id: params[:micropost_id])
     # ユーザーが有効化されていない場合はルートURLにリダイレクトさせる
-    redirect_to root_url and return unless @user.activated? 
+    redirect_to root_url and return unless @user.activated?
   end
   
   def new
@@ -71,6 +69,22 @@ class UsersController < ApplicationController
     @user  = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page]).search(params[:search])
     render 'show_followers'
+  end
+  
+  def likes
+    @user = User.find(params[:id])
+    @likes = Like.where(user_id: @user.id)
+    posts = @likes.map do |like|
+      like.micropost
+    end
+    if params[:search]
+      @microposts = posts.select do |post|
+        post.content.include?(params[:search])
+      end
+    else
+      @microposts = posts
+    end
+    render 'likes_users'
   end
   
   private

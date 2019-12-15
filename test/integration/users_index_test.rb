@@ -22,6 +22,8 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       unless user == @admin
         assert_select 'a[href=?]', user_path(user), text: 'delete'
       end
+      # 自己紹介文が表示されているか確認
+      assert_select "p", user.profile
     end
     assert_difference 'User.count', -1 do
       delete user_path(@non_admin)

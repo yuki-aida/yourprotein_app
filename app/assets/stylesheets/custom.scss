@@ -332,31 +332,31 @@ span.picture {
 .search-group{
   
   input[type=search] {
-	-webkit-appearance: none;
-	display: inline-block;
-	margin-right: 0;
-	margin-bottom: 20px;
-	padding: 8px;
-	width: 200px;
-	font-size: 100%;
-	box-sizing: border-box;
-	border-radius: 5px 0 0 5px;
-	border: 1px solid #ccc;
-	border-right: none;
+  webkit-appearance: none;
+  display: inline-block;
+  margin-right: 0;
+  margin-bottom: 20px;
+  padding: 8px;
+  width: 200px;
+  font-size: 100%;
+  box-sizing: border-box;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #ccc;
+  border-right: none;
   }
   
   input[type=submit] {
-	-webkit-appearance: none;
-	display: inline-block;
-	padding: 0 10px;
-	color: #fff;
-	width: 50px;
-	padding: 9px;
-	font-size: 100%;
-	vertical-align: top;
-	border: none;
-	border-radius: 0 5px 5px 0;
-	background: #1f76e2;
+  webkit-appearance: none;
+  display: inline-block;
+  padding: 0 10px;
+  color: #fff;
+  width: 50px;
+  padding: 9px;
+  font-size: 100%;
+  vertical-align: top;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background: #1f76e2;
   }
   
 }

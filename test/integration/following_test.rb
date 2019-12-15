@@ -14,6 +14,7 @@ class FollowingTest < ActionDispatch::IntegrationTest
     assert_match @user.following.count.to_s, response.body
     @user.following.each do |user|
       assert_select "a[href=?]", user_path(user)
+      assert_select "p", user.profile
     end
   end
 
@@ -23,6 +24,7 @@ class FollowingTest < ActionDispatch::IntegrationTest
     assert_match @user.followers.count.to_s, response.body
     @user.followers.each do |user|
       assert_select "a[href=?]", user_path(user)
+      assert_select "p", user.profile
     end
   end
   

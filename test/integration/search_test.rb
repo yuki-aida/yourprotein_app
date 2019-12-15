@@ -7,6 +7,7 @@ class UsersSearchTest < ActionDispatch::IntegrationTest
     @other_user = users(:archer)
   end
   
+  # ユーザー一覧ページに対するテスト
   test "Users search" do
   # ログインする
   log_in_as(@user)

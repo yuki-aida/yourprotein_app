@@ -37,4 +37,43 @@ class FavoriteTest < ActionDispatch::IntegrationTest
     end
   end
   
+  # 自分以外のプロフィールページに対するテスト
+  test "user profile favarite" do
+    log_in_as(@user)
+    get user_path(@other_user)
+    assert_template 'users/show'
+    assert_select "button[type=submit]"
+    # michaelがlanaの最初の投稿をいいねする
+    lana_micropost = @other_user.microposts.first.id
+    assert_difference 'Like.count', 1 do
+      post likes_path, params: { micropost_id: lana_micropost }
+    end
+    lana_like = Like.find_by(user_id: @user.id, micropost_id: @other_user.microposts.first.id).id
+    assert_difference 'Like.count', -1 do
+      delete like_path(lana_like)
+    end
+  end
+  
+  # お気に入りテーブルに対するテスト
+  test "user's favorite microposts" do
+    log_in_as(@user)
+    get likes_user_path(@user)
+    assert_template "likes_users"
+    assert_match "お気に入り(0)", response.body
+    get user_path(@other_user)
+    assert_template 'users/show'
+    assert_select "button[type=submit]"
+    assert_select "a", text: "投稿一覧"
+    assert_select "a", text: "お気に入り"
+    lana_micropost = @other_user.microposts.first.id
+    post likes_path, params: { micropost_id: lana_micropost }
+    get likes_user_path(@user)
+    assert_match "お気に入り(1)", response.body
+    get user_path(@other_user)
+    lana_like = Like.find_by(user_id: @user.id, micropost_id: @other_user.microposts.first.id).id
+    delete like_path(lana_like)
+    get likes_user_path(@user)
+    assert_match "お気に入り(0)", response.body
+  end
+  
 end
