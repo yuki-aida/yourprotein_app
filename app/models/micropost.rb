@@ -6,7 +6,9 @@ class Micropost < ApplicationRecord
   default_scope -> { order(created_at: :desc) }     # ラムダ式という文法(すぐに理解しなくても良い)
   mount_uploader :picture, PictureUploader   # CarrierWaveに画像と関連付けたモデルを伝える
   validates :user_id, presence: true
-  validates :content, presence: true, length: { maximum: 140 }
+  validates :content, presence: true, length: { maximum: 400 }
+  validates :title, presence: true, length: { maximum: 40 }
+  validates :category, presence: true
   # 独自のバリデーションなのでvalidateメソッドを使う
   validate :picture_size
   

@@ -91,6 +91,12 @@ class UsersController < ApplicationController
     render 'likes_users'
   end
   
+  def protein
+    @user = current_user
+    @microposts = Micropost.where(category: "protein")
+    render 'category_protein'
+  end
+  
   private
   
     def user_params

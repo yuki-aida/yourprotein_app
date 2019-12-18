@@ -6,7 +6,8 @@ class MicropostTest < ActiveSupport::TestCase
     @user = users(:michael)
     # このコードは慣習的に正しくない
     # @micropost = Micropost.new(content: "Lorem ipsum", user_id: @user.id)
-    @micropost = @user.microposts.build(content: "Lorem ipsum")
+    @micropost = @user.microposts.build(content: "Lorem ipsum", title: "aaaaa",
+                          category: "その他")
   end
   
   test "should be valid" do
@@ -24,7 +25,7 @@ class MicropostTest < ActiveSupport::TestCase
   end
   
   test "content should be at most 140 characters" do
-    @micropost.content = "a" * 141
+    @micropost.content = "a" * 401
     assert_not @micropost.valid?
   end
   

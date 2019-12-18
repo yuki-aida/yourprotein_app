@@ -30,13 +30,13 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post login_path, params: { session: { email: @user.email,
                                 password: "password" } }
   # リダイレクト先が正しいか確認（実際にはまだ開いていない）
-    assert_redirected_to @user
+    assert_redirected_to root_url
   # ログイン済みか確認
     assert is_logged_in?
   # そのページ（ユーザー詳細ページ）に実際に移動
     follow_redirect!
   # ユーザーページが正しく描写されているか確認
-    assert_template 'users/show'
+    assert_template 'static_pages/home'
   # ログイン用レイアウトが表示されなくなったか確認
   # 引数にcount: 0を追加すると一致するリンクがないかどうか確認できる
     assert_select "a[href=?]", login_path, count: 0 

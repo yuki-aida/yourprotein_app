@@ -95,7 +95,7 @@ class UserTest < ActiveSupport::TestCase
     # ユーザーに関連づけられたマイクロポストがユーザーを削除すると同時に削除される
     # ことを確かめる
     @user.save
-    @user.microposts.create!(content: "Lorem ipsum")
+    @user.microposts.create!(content: "Lorem ipsum", title: "aaaaa", category: "その他")
     assert_difference 'Micropost.count', -1 do
       @user.destroy
     end

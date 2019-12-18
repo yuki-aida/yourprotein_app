@@ -10,7 +10,8 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get root_path
     assert_select 'div.pagination'
-    assert_select 'input[type = file]'
+    assert_select "a[href=?]", new_micropost_path
+    get new_micropost_path
     # 無効な送信
     assert_no_difference 'Micropost.count' do
       post microposts_path, params: { micropost: { content: "" } }
@@ -20,7 +21,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     content = "This micropost really ties the room together"
     picture = fixture_file_upload('test/fixtures/home_image.jpg')
     assert_difference 'Micropost.count', 1 do
-      post microposts_path, params: { micropost: { content: content,
+      post microposts_path, params: { micropost: { content: content, title: "aaaaa", category: "その他",
                                           picture: picture } }
     end
     assert assigns[:micropost].picture?
@@ -48,7 +49,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(other_user)
     get root_path
     assert_match "0 microposts", response.body
-    other_user.microposts.create!(content: "A micropost")
+    other_user.microposts.create!(content: "A micropost", title: "aaaaa", category: "その他")
     get root_path
     assert_match "1 micropost", response.body
   end

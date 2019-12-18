@@ -37,7 +37,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     # session[:forwarding_url]の値が削除されているか確認（プロフィールページに
     # リダイレクトするか確認）
     log_in_as(@user)
-    assert_redirected_to @user
+    assert_redirected_to root_url
   end
   
 end

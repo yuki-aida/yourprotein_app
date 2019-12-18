@@ -2,6 +2,10 @@ class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user, only: :destroy
   
+  def new
+    @micropost = current_user.microposts.build
+  end
+  
   def create
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
@@ -10,7 +14,7 @@ class MicropostsController < ApplicationController
     else
       @feed_items = [ ]
       @user = User.find(current_user.id)
-      render 'static_pages/home'
+      render 'microposts/new'
     end
   end
   
@@ -24,7 +28,7 @@ class MicropostsController < ApplicationController
   private
 
     def micropost_params
-      params.require(:micropost).permit(:content, :picture)
+      params.require(:micropost).permit(:content, :picture, :title, :category)
     end
     
     def correct_user
