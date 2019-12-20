@@ -14,20 +14,8 @@
     </aside>
     <div class="col-md-8">
       <div>
-      <h3 style="float: left;">#プロテイン</h3>
-      
-      <!--検索機能-->
-      
-      <div class="search-group" style="float: right; margin-top: 12px;">
-      <%= form_tag(root_path, :method => 'get' ) do %>
-        <input type="search" name="search" id="search" placeholder="キーワード"><input type="submit" name="" value="検索">
-      <% end %>
-      </div>
-      </div>
-      
-      <!--検索機能ここまで-->
-      
-      <ol class="microposts" id="posts" style="clear: both;">
+      <h3><%= yield(:category) %></h3>
+      <ol class="microposts" id="posts">
         <% @microposts.each do |micropost| %>
         <li id="micropost-<%= micropost.id %>">
         <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
@@ -52,6 +40,7 @@
         </li>
         <% end %>
       </ol>
+      <%= will_paginate @microposts %>
   </div>
     </div>
 <% end %>

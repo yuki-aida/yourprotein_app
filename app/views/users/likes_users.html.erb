@@ -19,21 +19,8 @@
     </section>
   </aside>
    <div class="col-md-8">
-      <div>
-      <h3 style="float: left;">お気に入り(<%= @likes.count %>)</h3>
-      
-      <!--<検索機能>-->
-      
-      <div class="search-group" style="float: right; margin-top: 12px;">
-      <%= form_tag(likes_user_path, :method => 'get' ) do %>
-        <input type="search" name="search" id="search" placeholder="キーワード"><input type="submit" name="" value="検索">
-      <% end %>
-      </div>
-      </div>
-      
-      <!--<検索機能ここまで>-->
-      
-      <div style="clear: both;">
+      <h3>お気に入り(<%= @likes.count %>)</h3>
+      <div class="user-liked-table">
         <%= link_to "投稿一覧", user_path(@user) %>
         <%= link_to "お気に入り", likes_user_path(@user) %>
       </div>
@@ -43,6 +30,10 @@
   <li id="micropost-<%= micropost.id %>">
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  <span class="title">
+        <p>商品名: <%= micropost.title %></p>
+        <%= link_to "##{micropost.category}", "/#{micropost.category}" %>
+        </span>
   <span class="content">
     <%= simple_format(micropost.content) %>
     <%= image_tag micropost.picture.url if micropost.picture? %>

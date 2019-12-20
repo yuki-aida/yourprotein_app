@@ -79,5 +79,29 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get followers_user_path(@user)
     assert_redirected_to login_url
   end
+  
+  test "microposts category protein" do
+    log_in_as(@user)
+    get "/protein"
+    assert_match "#プロテイン", response.body
+  end
+  
+  test "microposts category wear" do
+    log_in_as(@user)
+    get "/wear"
+    assert_match "#ウェア", response.body
+  end
+
+  test "microposts category training_items" do
+    log_in_as(@user)
+    get "/training_items"
+    assert_match "#トレーニング用品", response.body
+  end
+  
+  test "microposts category others" do
+    log_in_as(@user)
+    get "/others"
+    assert_match "#その他", response.body
+  end
 
 end

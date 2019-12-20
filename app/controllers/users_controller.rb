@@ -78,23 +78,42 @@ class UsersController < ApplicationController
     @likes = Like.where(user_id: @user.id)
     # クラス名: Array(ただの配列だからモデルにあるsearchメソッドが使えない)
     # Arrayクラスに対してMicropostクラスメソッドは使えない
-    posts = @likes.map do |like|
+    @microposts = @likes.map do |like|
       like.micropost
-    end
-    if params[:search]
-      @microposts = posts.select do |post|
-        post.content.include?(params[:search])
-      end
-    else
-      @microposts = posts
     end
     render 'likes_users'
   end
   
   def protein
+    @category = "#プロテイン"
+    @category_url = "/protein"
     @user = current_user
-    @microposts = Micropost.where(category: "protein")
-    render 'category_protein'
+    @microposts = Micropost.paginate(page: params[:page]).where(category: "protein")
+    render 'category_posts'
+  end
+  
+  def wear
+    @category = "#ウェア"
+    @category_url = "/wear"
+    @user = current_user
+    @microposts = Micropost.paginate(page: params[:page]).where(category: "wear")
+    render 'category_posts'
+  end
+  
+  def training_items
+    @category = "#トレーニング用品"
+    @category_url = "/training_items"
+    @user = current_user
+    @microposts = Micropost.paginate(page: params[:page]).where(category: "training_items")
+    render 'category_posts'
+  end
+  
+  def others
+    @category = "#その他"
+    @category_url = "/others"
+    @user = current_user
+    @microposts = Micropost.paginate(page: params[:page]).where(category: "others")
+    render 'category_posts'
   end
   
   private

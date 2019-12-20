@@ -31,7 +31,7 @@ class FavoriteTest < ActionDispatch::IntegrationTest
     # いいねを解除する
     # lanaの最初の投稿のid
     # @other_userの最初の投稿に関連づけられていて、likeテーブルのuser_idが@userであるもの
-    lana_like = Like.find_by(user_id: @user.id, micropost_id: @other_user.microposts.first.id).id
+    lana_like = Like.find_by(user_id: @user.id, micropost_id: lana_micropost).id
     assert_difference 'Like.count', -1 do
       delete like_path(lana_like)
     end
@@ -42,7 +42,7 @@ class FavoriteTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get user_path(@other_user)
     assert_template 'users/show'
-    assert_select "button[type=submit]"
+    assert_select "input[type=submit]"
     # michaelがlanaの最初の投稿をいいねする
     lana_micropost = @other_user.microposts.first.id
     assert_difference 'Like.count', 1 do
@@ -59,7 +59,7 @@ class FavoriteTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get likes_user_path(@user)
     assert_template "likes_users"
-    assert_match "お気に入り(0)", response.body
+    assert_match "お気に入り(2)", response.body
     get user_path(@other_user)
     assert_template 'users/show'
     assert_select "button[type=submit]"
@@ -68,12 +68,12 @@ class FavoriteTest < ActionDispatch::IntegrationTest
     lana_micropost = @other_user.microposts.first.id
     post likes_path, params: { micropost_id: lana_micropost }
     get likes_user_path(@user)
-    assert_match "お気に入り(1)", response.body
+    assert_match "お気に入り(3)", response.body
     get user_path(@other_user)
     lana_like = Like.find_by(user_id: @user.id, micropost_id: @other_user.microposts.first.id).id
     delete like_path(lana_like)
     get likes_user_path(@user)
-    assert_match "お気に入り(0)", response.body
+    assert_match "お気に入り(2)", response.body
   end
   
 end

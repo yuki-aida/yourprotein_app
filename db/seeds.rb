@@ -3,8 +3,8 @@
 
 # create!は基本的にはcreateと同じだが、ユーザーが無効の場合falseではなく例外を発生
 # させる
-User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
+User.create!(name:  "Yuki Aida",
+             email: "yukiaida21@gmail.com",
              password:              "foobar",
              password_confirmation: "foobar",
              admin: true,
@@ -28,9 +28,29 @@ end
 
 # 作成されたユーザーの最初の6人を明示的に呼び出す
 users = User.order(:created_at).take(6)
-50.times do
+10.times do
   content = Faker::Lorem.sentence(5)
-  users.each { |user| user.microposts.create!(content: content) }
+  title = "My Protein"
+  category = "others"
+  users.each { |user| user.microposts.create!(content: content, title: title, category: category) }
+end
+10.times do
+  content = Faker::Lorem.sentence(5)
+  title = "My Protein"
+  category = "protein"
+  users.each { |user| user.microposts.create!(content: content, title: title, category: category) }
+end
+10.times do
+  content = Faker::Lorem.sentence(5)
+  title = "My Protein"
+  category = "training_items"
+  users.each { |user| user.microposts.create!(content: content, title: title, category: category) }
+end
+10.times do
+  content = Faker::Lorem.sentence(5)
+  title = "My Protein"
+  category = "wear"
+  users.each { |user| user.microposts.create!(content: content, title: title, category: category) }
 end
 
 # リレーションシップ

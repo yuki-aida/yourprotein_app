@@ -1,0 +1,10 @@
+# michaelがarcherの投稿をいいねする
+one:
+  user: michael
+  micropost: ants
+  created_at: <%= 10.minutes.ago %>
+
+two:
+  user: michael
+  micropost: zone
+  created_at: <%= 3.days.ago %>

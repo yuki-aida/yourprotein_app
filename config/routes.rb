@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       end
     end
     get '/protein', to: 'users#protein'
+    get '/wear', to: 'users#wear'
+    get '/training_items', to: 'users#training_items'
+    get '/others', to: 'users#others'
     resources :account_activations, only: [:edit]
     resources :password_resets, only: [:new, :create, :edit, :update]
     resources :microposts,          only: [:new, :create, :destroy]
