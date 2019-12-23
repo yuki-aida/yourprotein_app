@@ -19,15 +19,19 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select 'div#error_explanation'
     # 有効な送信
     content = "This micropost really ties the room together"
+    title = "aaaaa"
+    category = "その他"
     picture = fixture_file_upload('test/fixtures/home_image.jpg')
     assert_difference 'Micropost.count', 1 do
-      post microposts_path, params: { micropost: { content: content, title: "aaaaa", category: "その他",
+      post microposts_path, params: { micropost: { content: content, title: title, category: category,
                                           picture: picture } }
     end
     assert assigns[:micropost].picture?
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
+    assert_match title, response.body
+    assert_match category, response.body
     # 投稿を削除する
     assert_select 'a', text: 'delete'
     # 一番上のマイクロポストの値を代入

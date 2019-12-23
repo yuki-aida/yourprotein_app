@@ -12,8 +12,6 @@ class MicropostsController < ApplicationController
       flash[:success] = "Micropost created!"
       redirect_to root_url
     else
-      @feed_items = [ ]
-      @user = User.find(current_user.id)
       render 'microposts/new'
     end
   end

@@ -5,8 +5,8 @@ class RelationshipsController < ApplicationController
     @user = User.find(params[:followed_id])
     current_user.follow(@user)
     respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
+      format.html { redirect_to @user } #ブラウザ側でJavaScriptが無効になっていた場合(Ajaxリクエストに非対応)
+      format.js #ブラウザ側でJavaScriptが有効な場合(Ajaxリクエストに対応)
     end
   end
 

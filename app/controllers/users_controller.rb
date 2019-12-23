@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   # edit、updateアクションが実行される前に実行されるフィルター
   before_action :logged_in_user, only:[:edit, :update, :index, :destroy,
-                                  :following, :followers, :likes]
+                                  :following, :followers, :likes, :protein, :wear,
+                                    :training_items, :others]
   before_action :correct_user, only:[:edit, :update]
   before_action :admin_user, only: :destroy
   
@@ -14,7 +15,7 @@ class UsersController < ApplicationController
     # /users/:idから値を取得して@userに代入
     @user = User.find(params[:id])
     # class名: Micropost::ActiveRecord_AssociationRelation 
-    @microposts = @user.microposts.paginate(page: params[:page]).search(params[:search])
+    @microposts = @user.microposts.paginate(page: params[:page])
     # ユーザーが有効化されていない場合はルートURLにリダイレクトさせる
     redirect_to root_url and return unless @user.activated?
   end

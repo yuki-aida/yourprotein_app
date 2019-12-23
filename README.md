@@ -38,4 +38,4 @@ Rails Tutorialを学んだ後、知識を定着させる目的で作ったアプ
 　・Javascript<br>
 ・バックエンド言語<br>
 　・Ruby 2.6.3<br>
-　・Ruby on Rails 5.1.6
+　・Ruby on Rails 5.2.0
