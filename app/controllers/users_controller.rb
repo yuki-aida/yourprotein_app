@@ -86,32 +86,36 @@ class UsersController < ApplicationController
   end
   
   def protein
+    @title = "#プロテイン"
     @category = "#プロテイン"
-    @category_url = "/protein"
+    # @category_url = "/protein"
     @user = current_user
     @microposts = Micropost.paginate(page: params[:page]).where(category: "protein")
     render 'category_posts'
   end
   
   def wear
+    @title = "#ウェア"
     @category = "#ウェア"
-    @category_url = "/wear"
+    # @category_url = "/wear"
     @user = current_user
     @microposts = Micropost.paginate(page: params[:page]).where(category: "wear")
     render 'category_posts'
   end
   
   def training_items
+    @title = "#トレーニング用品"
     @category = "#トレーニング用品"
-    @category_url = "/training_items"
+    # @category_url = "/training_items"
     @user = current_user
     @microposts = Micropost.paginate(page: params[:page]).where(category: "training_items")
     render 'category_posts'
   end
   
   def others
+    @title = "#その他"
     @category = "#その他"
-    @category_url = "/others"
+    # @category_url = "/others"
     @user = current_user
     @microposts = Micropost.paginate(page: params[:page]).where(category: "others")
     render 'category_posts'

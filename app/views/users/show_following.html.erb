@@ -5,7 +5,7 @@
       <%= gravatar_for @user %>
       <h1><%= @user.name %></h1>
       <span><%= link_to "プロフィール", @user %></span>
-      <span><b>Microposts:</b> <%= @user.microposts.count %></span>
+      <span><%= pluralize(current_user.microposts.count, "microposts") %></span>
     </section>
     <% if current_user?(@user) %>
     <%= link_to "変更", edit_user_path(current_user)%>
