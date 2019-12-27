@@ -19,7 +19,7 @@
     </section>
   </aside>
    <div class="col-md-8">
-      <h3>投稿一覧 (<%= @user.microposts.count %>)</h3>
+      <h3>お気に入り(<%= @likes.count %>)</h3>
       <div class="user-liked-table">
         <%= link_to "投稿一覧", user_path(@user) %>
         <%= link_to "お気に入り", likes_user_path(@user) %>
@@ -27,6 +27,5 @@
       <ol class="microposts" id="posts">
         <%= render @microposts %>
       </ol>
-      <%= will_paginate @microposts %>
   </div>
 </div>

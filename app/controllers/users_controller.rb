@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     @microposts = @likes.map do |like|
       like.micropost
     end
-    render 'likes_users'
+    render 'show_likes'
   end
   
   def protein

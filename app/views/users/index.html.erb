@@ -1,3 +1,4 @@
+<% provide(:search_name, users_path) %>
 <% provide(:title, 'All users') %>
 <h1>ユーザー一覧</h1>
 
@@ -8,9 +9,7 @@
 <!--検索機能-->
 
 <div class="search-group" style="float: right;">
-<%= form_tag(users_path, :method => 'get' ) do %>
-  <input type="search" name="search" id="search" placeholder="キーワード"><input type="submit" name="" value="検索">
-<% end %>
+<%= render 'shared/search' %>
 </div>
 </div>
 

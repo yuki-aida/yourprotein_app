@@ -1,3 +1,4 @@
+<% provide(:search_name, root_path) %>
 <% if logged_in? %>
   <div class="row">
     <aside class="col-md-4">
@@ -24,9 +25,7 @@
       <!--検索機能-->
       
       <div class="search-group" style="float: right; margin-top: 12px;">
-      <%= form_tag(root_path, :method => 'get' ) do %>
-        <input type="search" name="search" id="search" placeholder="キーワード"><input type="submit" name="" value="検索">
-      <% end %>
+      <%= render 'shared/search' %>
       </div>
       </div>
       
