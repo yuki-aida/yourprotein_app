@@ -17,11 +17,18 @@
       <%= f.text_area :profile,  class: 'form-control', placeholder: "160文字以内で入力してください" %>
       
       <%= f.label :プロフィール画像 %>
-      <span class="picture">
         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-      </span>
       
       <%= f.submit yield(:botton_text), class: "btn btn-primary" %>
       <% end %>
+      
+      <script type="text/javascript">
+      $('#micropost_picture').bind('change', function() {
+      var size_in_megabytes = this.files[0].size/1024/1024;
+      if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+        }
+        });
+      </script>
   </div>
 </div>

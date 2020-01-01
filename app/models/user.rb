@@ -29,6 +29,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :profile, length: { maximum: 160 }
   mount_uploader :picture, PictureUploader
+  validate  :picture_size
   
   # 渡された文字列のハッシュを返す。（has_secure_passwordによるbcryptパスワードを
   # 生成する）
@@ -127,5 +128,12 @@ class User < ApplicationRecord
     def create_activation_digest
       self.activation_token = User.new_token
       self.activation_digest = User.digest(activation_token)
+    end
+    
+    # アップロードされた画像のサイズをバリデーションする
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "should be less than 5MB")
+      end
     end
 end
