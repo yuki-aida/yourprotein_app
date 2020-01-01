@@ -1,6 +1,6 @@
 <!--本当は @microposts.each do |micropost|のこと。だからmicropost.id等になっている-->
 <li id="micropost-<%= micropost.id %>">
-  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+  <%= link_to avatar_for(micropost.user, size: "50x50"), micropost.user %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="title">
     <p>商品名: <%= micropost.title %></p>

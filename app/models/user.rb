@@ -27,7 +27,8 @@ class User < ApplicationRecord
             uniqueness: {case_sensitive: false}
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  validates :profile, presence: true, length: { maximum: 160 }
+  validates :profile, length: { maximum: 160 }
+  mount_uploader :picture, PictureUploader
   
   # 渡された文字列のハッシュを返す。（has_secure_passwordによるbcryptパスワードを
   # 生成する）
@@ -114,14 +115,6 @@ class User < ApplicationRecord
   # 現在のユーザーがフォローしてたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
-  end
-  
-  def self.search(search)
-    if search
-      where(['name LIKE ?', "%#{search}%"]) #検索とnameの部分一致を表示
-    else
-      all #全て表示
-    end
   end
   
   private

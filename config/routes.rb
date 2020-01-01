@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         get :following, :followers, :likes
       end
     end
+    get '/search', to: 'users#search'
     get '/protein', to: 'users#protein'
     get '/wear', to: 'users#wear'
     get '/training_items', to: 'users#training_items'

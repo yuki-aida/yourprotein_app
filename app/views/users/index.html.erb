@@ -1,21 +1,10 @@
 <% provide(:search_name, users_path) %>
-<% provide(:title, 'All users') %>
+<% provide(:title, 'ユーザー一覧') %>
 <h1>ユーザー一覧</h1>
 
-<div>
-<div style="float: left;">
 <%= will_paginate %>
-</div>
-<!--検索機能-->
 
-<div class="search-group" style="float: right;">
-<%= render 'shared/search' %>
-</div>
-</div>
-
-<!--検索機能ここまで-->
-
-<ul class="users" style="clear: both;">
+<ul class="users">
   <!--Railsは@usersをUserオブジェクトのリストであると推測する-->
     <%= render @users %>
 </ul>

@@ -28,12 +28,13 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path
     # assert_differenceブロック内の処理を実行する直前のUser.countの値と実行した後の
     # 値を比較
+    picture = fixture_file_upload('test/fixtures/home_image.jpg')
     assert_difference 'User.count', 1 do
       post users_path, params: { user: { name: "Example User",
                           email: "user@example.com",
                           password: "password",
                           password_confirmation: "password",
-                          profile: "I like squat."} }
+                          profile: "I like squat.", picture: picture} }
     end
     # 送信されたメールがきっかり一つであることを確認
     assert_equal 1, ActionMailer::Base.deliveries.size

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   
   def index
     # class名: User::ActiveRecord_Relation 
-    @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
   
   def show
@@ -26,8 +26,6 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
-    # @user = User.new(name: "", email: "", password: "", password_confirmation:
-    #                     "")と同義
     if @user.save
       # 保存に成功した時の処理
       @user.send_activation_email
@@ -63,15 +61,22 @@ class UsersController < ApplicationController
   def following
     @title = "フォロー中"
     @user  = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page]).search(params[:search])
+    @users = @user.following.paginate(page: params[:page])
     render 'show_following'
   end
 
   def followers
     @title = "フォロワー"
     @user  = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page]).search(params[:search])
+    @users = @user.followers.paginate(page: params[:page])
     render 'show_followers'
+  end
+  
+  def search
+    @microposts = Micropost.all.paginate(page: params[:page]).search(params[:search])
+    @user = current_user
+    @title = "検索結果"
+    render 'search_posts'
   end
   
   def likes
@@ -125,7 +130,7 @@ class UsersController < ApplicationController
   
     def user_params
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation, :profile)
+                                   :password_confirmation, :profile, :picture)
     end
     
     # beforeアクション

@@ -10,7 +10,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
-    patch user_path(@user), params: { user: { name: "", email: "",
+    patch user_path(@user), params: { user: { name: "", email: "", profile: "",
                           password: "", password_confirmation: "" } }
     assert_template 'users/edit'
     assert_select 'div.alert', "The form contains 3 errors."
@@ -24,8 +24,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_url(@user)
     name = "foo bar"
     email = "foobar@gmail.com"
-    patch user_path(@user), params: { user: { name: name, email: email,
-                          password: "", password_confirmation: "" } }
+    profile = "Hi! My name is foobar"
+    picture = fixture_file_upload('test/fixtures/home_image.jpg')
+    patch user_path(@user), params: { user: { name: name, email: email, profile: profile,
+                          picture: picture, password: "", password_confirmation: "" } }
     assert_not flash.empty?
     assert_redirected_to @user
     # データベースの値で@userを更新

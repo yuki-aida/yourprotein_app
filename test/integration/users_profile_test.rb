@@ -12,8 +12,8 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)
     assert_select 'h1', text: @user.name
-    # このように書くことで、h1タグの内側にある、gravatarクラス付きのimgタグがあるかどうかをチェック
-    assert_select 'h1>img.gravatar'
+    # このように書くことで、h1タグの内側にある、user-imageクラス付きのimgタグがあるかどうかをチェック
+    assert_select 'h1>img.user-image'
     assert_match @user.microposts.count.to_s, response.body
     assert_select 'div.pagination', count: 1
     @user.microposts.paginate(page: 1).each do |micropost|

@@ -11,7 +11,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     # 正しいviewが描写されているか確認
     assert_template 'static_pages/home'
     # ホームページへのリンクが3つあるか確認
-    assert_select "a[href=?]", root_path, count: 2
+    assert_select "a[href=?]", root_path, count: 3
     #Helpページへのリンクがあるか確認
     assert_select "a[href=?]", help_path
     #Aboutページへのリンクが二つあるか確認

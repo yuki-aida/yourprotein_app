@@ -58,7 +58,7 @@ class FavoriteTest < ActionDispatch::IntegrationTest
   test "user's favorite microposts" do
     log_in_as(@user)
     get likes_user_path(@user)
-    assert_template "likes_users"
+    assert_template "show_likes"
     assert_match "お気に入り(2)", response.body
     get user_path(@other_user)
     assert_template 'users/show'

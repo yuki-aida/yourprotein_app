@@ -14,7 +14,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     get new_micropost_path
     # 無効な送信
     assert_no_difference 'Micropost.count' do
-      post microposts_path, params: { micropost: { content: "" } }
+      post microposts_path, params: { micropost: { content: "", title: "" } }
     end
     assert_select 'div#error_explanation'
     # 有効な送信

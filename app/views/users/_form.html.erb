@@ -1,15 +1,20 @@
 <%= form_for(@user, url: yield(:url)) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :name %>
+      <%= f.label :ユーザー名 %>
       <%= f.text_field :name, class: 'form-control' %>
 
-      <%= f.label :email %>
+      <%= f.label :メールアドレス %>
       <%= f.email_field :email, class: 'form-control' %>
       
-      <%= f.label :profile %>
+      <%= f.label :自己紹介文 %>
       <%= f.text_area :profile,  class: 'form-control', placeholder: "160文字以内で入力してください" %>
-
+      
+      <%= f.label :プロフィール画像 %>
+      <span class="picture">
+        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+      </span>
+      
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 

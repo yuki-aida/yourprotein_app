@@ -1,12 +1,12 @@
 module UsersHelper
   
-  # gravatar_forのヘルパーメソッドを定義する
-  # 引数で与えられたユーザーのGravatar画像を返す
-  def gravatar_for(user, options = { size: 80 })
-    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+  def avatar_for(user, options = { size: "50x50" })
     size = options[:size]
-    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: user.name, class: "gravatar")
+    if user.picture.present?
+      image_tag(user.picture.url, alt: user.name, :size => size, class: "user-image")
+    else
+      image_tag("default.jpg", alt: user.name, :size => size, class: "user-image")
+    end
   end
   
 end
