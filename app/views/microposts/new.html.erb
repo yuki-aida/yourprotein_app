@@ -6,16 +6,16 @@
     <!--object: f.objectはerror_messagesパーシャルの中でobjectという変数名を作成してくれる-->
     <!--(fの値が@userでも@micropostでもエラーメッセージが機能するようになる) -->
       <%= render 'shared/error_messages', object: f.object %>
-      <%= f.label :商品名 %>
+      <%= f.label :title, "商品名(※必須)" %>
       <%= f.text_field :title, class: 'form-control' %>
       
-      <%= f.label :コメント %>
+      <%= f.label :content, "コメント(※必須)" %>
       <div class="field">
         <%= f.text_area :content, size: "18x9", class: "form-control", placeholder: "400字以内で入力してください。
 <例>カップ一杯で約20gのタンパク質が取れます。また水に溶けやすくほとんどダマになりません。でもバニラ味は少し甘すぎるので私はプレーンと半々で割って飲んでます。" %>
       </div>
       
-      <%= f.label :カテゴリー %>
+      <%= f.label :category, "カテゴリー(※必須)" %>
       <%= f.select :category, [["プロテイン", "protein"], ["ウェア", "wear"], 
       ["トレーニング用品", "training_items"], ["その他", "others"]], class: 'form-control' %>
       

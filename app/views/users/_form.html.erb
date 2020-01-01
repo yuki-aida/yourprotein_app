@@ -1,22 +1,22 @@
 <%= form_for(@user, url: yield(:url)) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :ユーザー名 %>
+      <%= f.label :name, "ユーザー名(※必須)" %>
       <%= f.text_field :name, class: 'form-control' %>
 
-      <%= f.label :メールアドレス %>
+      <%= f.label :email, "メールアドレス(※必須)" %>
       <%= f.email_field :email, class: 'form-control' %>
       
-      <%= f.label :自己紹介文 %>
+      <%= f.label :profile, "自己紹介文" %>
       <%= f.text_area :profile,  class: 'form-control', placeholder: "160文字以内で入力してください" %>
       
-      <%= f.label :プロフィール画像 %>
+      <%= f.label :picture, "プロフィール画像" %>
       <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
       
-      <%= f.label :password %>
+      <%= f.label :password, "パスワード(※必須)" %>
       <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, "パスワードの再入力(※必須)" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.submit yield(:botton_text), class: "btn btn-primary" %>
